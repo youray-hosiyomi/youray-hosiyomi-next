@@ -5,6 +5,7 @@ import { FC, FormEvent, useCallback, useState } from "react";
 import { KeyIcon, MailIcon } from "lucide-react";
 import AppTitle from "@/components/app-title.component";
 import { useRouter } from "next/navigation";
+import { UILoading } from "@youray-hosiyomi/asterism-ui-react";
 
 const LoginForm: FC = () => {
   const router = useRouter();
@@ -15,7 +16,7 @@ const LoginForm: FC = () => {
       event.preventDefault();
       login.mutate(req, {
         onSuccess: () => {
-          router.push("/ws");
+          router.refresh();
         },
       });
     },
@@ -89,6 +90,7 @@ const LoginForm: FC = () => {
                 <div className="pt-2">
                   <button type="submit" className="btn btn-primary w-full" disabled={login.isPending}>
                     ログイン
+                    {login.isPending && <UILoading />}
                   </button>
                 </div>
               </form>
